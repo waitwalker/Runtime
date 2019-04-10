@@ -46,9 +46,11 @@
 #include <stdint.h>
 #include <assert.h>
 
+// MARK: - objc_class 和 objc_object 不完整声明
 struct objc_class;
 struct objc_object;
 
+// MARK: - 将objc_class类型取名为Class指针类型;将objc_object类型取名为id指针类型
 typedef struct objc_class *Class;
 typedef struct objc_object *id;
 
@@ -58,6 +60,7 @@ namespace {
 
 #include "isa.h"
 
+// MARK: - isa的声明
 union isa_t {
     isa_t() { }
     isa_t(uintptr_t value) : bits(value) { }
@@ -71,24 +74,43 @@ union isa_t {
 #endif
 };
 
-
+// MARK: - object的完整声明
 struct objc_object {
 private:
+    
+    // 私有成员变量: isa指针
     isa_t isa;
 
+// 公有函数
 public:
 
+    // 通过这个函数获取不支持tagged pointer的类指针
     // ISA() assumes this is NOT a tagged pointer object
     Class ISA();
 
+    
+    // 通过这个函数获取支持tagged pointer的类指针
     // getIsa() allows this to be a tagged pointer object
     Class getIsa();
 
+    // 以下几个函数是isa的初始化函数
+    
+    // initIsa()用来初始化一个新的对象的isa
     // initIsa() should be used to init the isa of new objects only.
+    
+    // changeIsa 修改一个对象的isa
     // If this object already has an isa, use changeIsa() for correctness.
+    
+    // initInstanceIsa()用来初始化一个实例对象的isa
     // initInstanceIsa(): objects with no custom RR/AWZ
+    
+    // initClassIsa()用来初始化一个类对象的isa
     // initClassIsa(): class objects
+    
+    // initProtocolIsa()用来初始化一个protocol的isa
     // initProtocolIsa(): protocol objects
+    
+    // initIsa()还用来初始化其它类型对象的isa
     // initIsa(): other objects
     void initIsa(Class cls /*nonpointer=false*/);
     void initClassIsa(Class cls /*nonpointer=maybe*/);
@@ -99,28 +121,37 @@ public:
     // If this is a new object, use initIsa() for performance.
     Class changeIsa(Class newCls);
 
+    // tagged pointer 相关
     bool hasNonpointerIsa();
     bool isTaggedPointer();
     bool isBasicTaggedPointer();
     bool isExtTaggedPointer();
+    
+    // 是否是Class
     bool isClass();
 
+    // 关联对象相关
     // object may have associated objects?
     bool hasAssociatedObjects();
     void setHasAssociatedObjects();
 
+    // weak指针相关
     // object may be weakly referenced?
     bool isWeaklyReferenced();
     void setWeaklyReferenced_nolock();
 
+    // 对象是否有析构函数
     // object may have -.cxx_destruct implementation?
     bool hasCxxDtor();
 
+    // retain 和 release 操作对象的引用计数 声明函数
     // Optimized calls to retain/release methods
     id retain();
     void release();
     id autorelease();
 
+    
+    // retain 和 release 操作对象的引用计数 实现函数
     // Implementations of retain/release methods
     id rootRetain();
     bool rootRelease();
@@ -129,11 +160,13 @@ public:
     bool rootReleaseShouldDealloc();
     uintptr_t rootRetainCount();
 
+    // 释放销毁对象相关
     // Implementation of dealloc methods
     bool rootIsDeallocating();
     void clearDeallocating();
     void rootDealloc();
 
+// 私有函数 上面一些公有函数的调用函数
 private:
     void initIsa(Class newCls, bool nonpointer, bool hasCxxDtor);
 

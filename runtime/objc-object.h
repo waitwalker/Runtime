@@ -207,6 +207,7 @@ objc_object::initIsa(Class cls, bool nonpointer, bool hasCxxDtor)
 { 
     assert(!isTaggedPointer()); 
     
+    // 不是tagged pointer 
     if (!nonpointer) {
         isa.cls = cls;
     } else {
