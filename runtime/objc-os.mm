@@ -518,7 +518,10 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
     // executable does not contain Objective-C code but Objective-C 
     // is dynamically loaded later.
     if (firstTime) {
+        // selector map初始化 将方法添加到map中
         sel_init(selrefCount);
+        
+        // AutoreleasePoolPage的初始化和全局SideTable的初始化
         arr_init();
 
 #if SUPPORT_GC_COMPAT

@@ -46,9 +46,11 @@ struct objc_object {
 typedef struct objc_object *id;
 #endif
 
+/// SEL的声明
 /// An opaque type that represents a method selector.
 typedef struct objc_selector *SEL;
 
+/// 一个指向实现函数的指针
 /// A pointer to the function of a method implementation. 
 #if !OBJC_OLD_DISPATCH_PROTOTYPES
 typedef void (*IMP)(void /* id, SEL, ... */ ); 

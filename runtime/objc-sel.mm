@@ -159,7 +159,10 @@ static SEL __sel_registerName(const char *name, bool shouldLock, bool copy)
                                           (unsigned)SelrefCount);
     }
     if (!result) {
+        // 初始化sel_alloc
         result = sel_alloc(name, copy);
+        
+        // 将selector 插入到NXMapTable 表中
         // fixme choose a better container (hash not map for starters)
         NXMapInsert(namedSelectors, sel_getName(result), result);
     }
