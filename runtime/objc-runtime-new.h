@@ -33,7 +33,7 @@ typedef uintptr_t cache_key_t;
 
 struct swift_class_t;
 
-
+// MARK: - bucket_t声明结构
 struct bucket_t {
 private:
     // IMP-first is better for arm64e ptrauth and no worse for arm64.
@@ -55,7 +55,7 @@ public:
     void set(cache_key_t newKey, IMP newImp);
 };
 
-
+// MARK: - cache_t结构声明
 struct cache_t {
     struct bucket_t *_buckets;
     mask_t _mask;
@@ -234,6 +234,7 @@ struct method_t {
     };
 };
 
+// MARK: - 成员变量结构声明
 struct ivar_t {
 #if __x86_64__
     // *offset was originally 64-bit on some x86_64 platforms.
@@ -256,11 +257,13 @@ struct ivar_t {
     }
 };
 
+// MARK: - 属性声明
 struct property_t {
     const char *name;
     const char *attributes;
 };
 
+// MARK: - 方法列表
 // Two bits of entsize are used for fixup markers.
 struct method_list_t : entsize_list_tt<method_t, method_list_t, 0x3> {
     bool isFixedUp() const;
@@ -274,12 +277,14 @@ struct method_list_t : entsize_list_tt<method_t, method_list_t, 0x3> {
     }
 };
 
+// MARK: - 成员变量列表
 struct ivar_list_t : entsize_list_tt<ivar_t, ivar_list_t, 0> {
     bool containsIvar(Ivar ivar) const {
         return (ivar >= (Ivar)&*begin()  &&  ivar < (Ivar)&*end());
     }
 };
 
+// MARK: - 属性列表
 struct property_list_t : entsize_list_tt<property_t, property_list_t, 0> {
 };
 
@@ -293,6 +298,7 @@ typedef uintptr_t protocol_ref_t;  // protocol_t *, but unremapped
 
 #define PROTOCOL_FIXED_UP_MASK (PROTOCOL_FIXED_UP_1 | PROTOCOL_FIXED_UP_2)
 
+// MARK: - 协议的声明结构
 struct protocol_t : objc_object {
     const char *mangledName;
     struct protocol_list_t *protocols;
@@ -340,6 +346,7 @@ struct protocol_t : objc_object {
     }
 };
 
+// MARK: - 协议列表
 struct protocol_list_t {
     // count is 64-bit by accident. 
     uintptr_t count;
@@ -549,7 +556,7 @@ struct locstamped_category_list_t {
 static_assert(FAST_IS_SWIFT_LEGACY == 1, "resistance is futile");
 static_assert(FAST_IS_SWIFT_STABLE == 2, "resistance is futile");
 
-
+// MARK: - class_ro_t结构声明
 struct class_ro_t {
     uint32_t flags;
     uint32_t instanceStart;
@@ -780,7 +787,7 @@ class list_array_tt {
     }
 };
 
-
+// MARK: - 方法列表
 class method_array_t : 
     public list_array_tt<method_t, method_list_t> 
 {
@@ -798,7 +805,7 @@ class method_array_t :
     }
 };
 
-
+// MARK: - 属性列表
 class property_array_t : 
     public list_array_tt<property_t, property_list_t> 
 {
@@ -810,7 +817,7 @@ class property_array_t :
     }
 };
 
-
+// MARK: - 协议列表
 class protocol_array_t : 
     public list_array_tt<protocol_ref_t, protocol_list_t> 
 {
@@ -823,11 +830,13 @@ class protocol_array_t :
 };
 
 
+// MARK: - class_rw_t结构声明
 struct class_rw_t {
     // Be warned that Symbolication knows the layout of this structure.
     uint32_t flags;
     uint32_t version;
 
+    // class_ro_t成员变量
     const class_ro_t *ro;
 
     method_array_t methods;
@@ -867,6 +876,7 @@ struct class_rw_t {
 };
 
 
+// MARK: - class_data_bits_t声明结构
 struct class_data_bits_t {
 
     // Values are the FAST_ flags above.
@@ -919,6 +929,7 @@ private:
 
 public:
 
+    // 返回 class_rw_t结构指针
     class_rw_t* data() {
         return (class_rw_t *)(bits & FAST_DATA_MASK);
     }
@@ -1107,16 +1118,19 @@ public:
     }
 };
 
-
+// MARK: - class的完整声明结构
 struct objc_class : objc_object {
     // Class ISA;
-    Class superclass;
-    cache_t cache;             // formerly cache pointer and vtable
-    class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags
+    Class superclass;//指向父类指针
+    cache_t cache;             // formerly cache pointer and vtable //缓存一些指针和虚表
+    class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags // 含有class_rw_t,内部存储方法,属性,遵循的协议等
 
+    // class_rw_t指针
     class_rw_t *data() { 
         return bits.data();
     }
+    
+    // set bits
     void setData(class_rw_t *newData) {
         bits.setData(newData);
     }

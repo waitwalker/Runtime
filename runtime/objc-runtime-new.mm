@@ -1848,6 +1848,7 @@ static void reconcileInstanceVariables(Class cls, Class supercls, const class_ro
 }
 
 
+// MARK: - 类的初始化
 /***********************************************************************
 * realizeClass
 * Performs first-time initialization on class cls, 

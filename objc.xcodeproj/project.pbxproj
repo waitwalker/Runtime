@@ -105,6 +105,7 @@
 		83F550E0155E030800E95D3B /* objc-cache-old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83F550DF155E030800E95D3B /* objc-cache-old.mm */; };
 		87BB4EA70EC39854005D08E1 /* objc-probes.d in Sources */ = {isa = PBXBuildFile; fileRef = 87BB4E900EC39633005D08E1 /* objc-probes.d */; };
 		9672F7EE14D5F488007CEC96 /* NSObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9672F7ED14D5F488007CEC96 /* NSObject.mm */; };
+		CA540812226079280056A1F8 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = CA54080D226077D50056A1F8 /* Person.m */; };
 		CA588730225AE38D00E277F1 /* reason.h in Headers */ = {isa = PBXBuildFile; fileRef = CA58872F225AE38D00E277F1 /* reason.h */; };
 		CA588734225AE4E400E277F1 /* dyld_priv.h in Headers */ = {isa = PBXBuildFile; fileRef = CA588733225AE4E400E277F1 /* dyld_priv.h */; };
 		CA588737225AE63300E277F1 /* lock_private.h in Headers */ = {isa = PBXBuildFile; fileRef = CA588736225AE63300E277F1 /* lock_private.h */; };
@@ -283,6 +284,8 @@
 		87BB4E900EC39633005D08E1 /* objc-probes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = "objc-probes.d"; path = "runtime/objc-probes.d"; sourceTree = "<group>"; };
 		9672F7ED14D5F488007CEC96 /* NSObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NSObject.mm; path = runtime/NSObject.mm; sourceTree = "<group>"; };
 		BC8B5D1212D3D48100C78A5B /* libauto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libauto.dylib; path = /usr/lib/libauto.dylib; sourceTree = "<absolute>"; };
+		CA54080C226077D50056A1F8 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		CA54080D226077D50056A1F8 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		CA58872F225AE38D00E277F1 /* reason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reason.h; sourceTree = "<group>"; };
 		CA588733225AE4E400E277F1 /* dyld_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dyld_priv.h; sourceTree = "<group>"; };
 		CA588736225AE63300E277F1 /* lock_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lock_private.h; sourceTree = "<group>"; };
@@ -639,6 +642,8 @@
 		CA588784225AFF1700E277F1 /* RuntimeDylibTest */ = {
 			isa = PBXGroup;
 			children = (
+				CA54080C226077D50056A1F8 /* Person.h */,
+				CA54080D226077D50056A1F8 /* Person.m */,
 				CA588785225AFF1700E277F1 /* main.m */,
 			);
 			path = RuntimeDylibTest;
@@ -1006,6 +1011,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA540812226079280056A1F8 /* Person.m in Sources */,
 				CA588786225AFF1700E277F1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
