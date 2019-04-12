@@ -2978,6 +2978,7 @@ method_getDescription(Method m)
 }
 
 
+// MARK: - 获取一个方法的IMP
 IMP 
 method_getImplementation(Method m)
 {
@@ -2985,6 +2986,7 @@ method_getImplementation(Method m)
 }
 
 
+// MARK: - 获取一个方法名称
 /***********************************************************************
 * method_getName
 * Returns this method's selector.
@@ -3001,7 +3003,7 @@ method_getName(Method m)
     return m->name;
 }
 
-
+// MARK: - 获取一个方法的参数和返回值类型
 /***********************************************************************
 * method_getTypeEncoding
 * Returns this method's old-style type encoding string.
@@ -3015,7 +3017,7 @@ method_getTypeEncoding(Method m)
     return m->types;
 }
 
-
+// MARK: - 更新设置某个方法的IMP
 /***********************************************************************
 * method_setImplementation
 * Sets this method's implementation to imp.
@@ -3043,6 +3045,7 @@ _method_setImplementation(Class cls, method_t *m, IMP imp)
     return old;
 }
 
+// MARK: - 更新设置某个方法IMP
 IMP 
 method_setImplementation(Method m, IMP imp)
 {
@@ -3052,7 +3055,7 @@ method_setImplementation(Method m, IMP imp)
     return _method_setImplementation(Nil, m, imp);
 }
 
-
+// MARK: - 交换两个方法的实现即交换两个方法的IMP
 void method_exchangeImplementations(Method m1, Method m2)
 {
     if (!m1  ||  !m2) return;
@@ -4083,7 +4086,7 @@ Protocol *objc_getProtocol(const char *name)
     return getProtocol(name);
 }
 
-
+// MARK: - 获取一个类所有实现的方法列表
 /***********************************************************************
 * class_copyMethodList
 * fixme

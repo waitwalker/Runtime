@@ -2033,6 +2033,7 @@ void arr_init(void)
     return NO;
 }
 
+// MARK: - 一个对象是否响应某个方法
 + (BOOL)instancesRespondToSelector:(SEL)sel {
     if (!sel) return NO;
     return class_respondsToSelector(self, sel);
@@ -2043,6 +2044,7 @@ void arr_init(void)
     return class_respondsToSelector_inst(object_getClass(self), sel, self);
 }
 
+// MARK: - 是否响应某个方法
 - (BOOL)respondsToSelector:(SEL)sel {
     if (!sel) return NO;
     return class_respondsToSelector_inst([self class], sel, self);
@@ -2097,7 +2099,7 @@ void arr_init(void)
     return NO;
 }
 
-
+// MARK: - 获取一个实例方法SEL对应的IMP
 + (IMP)instanceMethodForSelector:(SEL)sel {
     if (!sel) [self doesNotRecognizeSelector:sel];
     return class_getMethodImplementation(self, sel);
@@ -2108,11 +2110,13 @@ void arr_init(void)
     return object_getMethodImplementation((id)self, sel);
 }
 
+// MARK: - 获取一个SEL对应的IMP
 - (IMP)methodForSelector:(SEL)sel {
     if (!sel) [self doesNotRecognizeSelector:sel];
     return object_getMethodImplementation(self, sel);
 }
 
+// MARK: - 动态方法解析
 + (BOOL)resolveClassMethod:(SEL)sel {
     return NO;
 }
@@ -2127,6 +2131,7 @@ void arr_init(void)
                 class_getName(self), sel_getName(sel), self);
 }
 
+// MARK: - 不能响应某个方法
 // Replaced by CF (throws an NSException)
 - (void)doesNotRecognizeSelector:(SEL)sel {
     _objc_fatal("-[%s %s]: unrecognized selector sent to instance %p", 
@@ -2149,6 +2154,7 @@ void arr_init(void)
     return ((id(*)(id, SEL, id, id))objc_msgSend)((id)self, sel, obj1, obj2);
 }
 
+// MARK: -  执行某个方法 一般用于方法解析中动态添加方法
 - (id)performSelector:(SEL)sel {
     if (!sel) [self doesNotRecognizeSelector:sel];
     return ((id(*)(id, SEL))objc_msgSend)(self, sel);

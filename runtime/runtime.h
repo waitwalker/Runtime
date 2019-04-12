@@ -596,6 +596,7 @@ class_getMethodImplementation_stret(Class _Nullable cls, SEL _Nonnull name)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0)
     OBJC_ARM64_UNAVAILABLE;
 
+// MARK: - 一个实例对象是否响应某个方法
 /** 
  * Returns a Boolean value that indicates whether instances of a class respond to a particular selector.
  * 
@@ -611,6 +612,7 @@ OBJC_EXPORT BOOL
 class_respondsToSelector(Class _Nullable cls, SEL _Nonnull sel) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个类的方法列表
 /** 
  * Describes the instance methods implemented by a class.
  * 
@@ -969,8 +971,10 @@ objc_disposeClassPair(Class _Nonnull cls)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
 
+
 /* Working with Methods */
 
+// MARK: - 获取一个方法名称
 /** 
  * Returns the name of a method.
  * 
@@ -984,6 +988,7 @@ OBJC_EXPORT SEL _Nonnull
 method_getName(Method _Nonnull m) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个方法的实现
 /** 
  * Returns the implementation of a method.
  * 
@@ -995,6 +1000,7 @@ OBJC_EXPORT IMP _Nonnull
 method_getImplementation(Method _Nonnull m) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个方法的参数和返回值类型
 /** 
  * Returns a string describing a method's parameter and return types.
  * 
@@ -1006,6 +1012,7 @@ OBJC_EXPORT const char * _Nullable
 method_getTypeEncoding(Method _Nonnull m) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个方法参数数量
 /** 
  * Returns the number of arguments accepted by a method.
  * 
@@ -1017,6 +1024,7 @@ OBJC_EXPORT unsigned int
 method_getNumberOfArguments(Method _Nonnull m)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个方法的返回值类型
 /** 
  * Returns a string describing a method's return type.
  * 
@@ -1028,6 +1036,7 @@ OBJC_EXPORT char * _Nonnull
 method_copyReturnType(Method _Nonnull m) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取方法某个参数的类型
 /** 
  * Returns a string describing a single parameter type of a method.
  * 
@@ -1041,6 +1050,7 @@ OBJC_EXPORT char * _Nullable
 method_copyArgumentType(Method _Nonnull m, unsigned int index) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取方法返回值类型
 /** 
  * Returns by reference a string describing a method's return type.
  * 
@@ -1076,6 +1086,7 @@ OBJC_EXPORT struct objc_method_description * _Nonnull
 method_getDescription(Method _Nonnull m) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 更新设置某个方法的IMP
 /** 
  * Sets the implementation of a method.
  * 
@@ -1088,6 +1099,7 @@ OBJC_EXPORT IMP _Nonnull
 method_setImplementation(Method _Nonnull m, IMP _Nonnull imp) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 交换两个方法的实现即交换两个方法的IMP
 /** 
  * Exchanges the implementations of two methods.
  * 

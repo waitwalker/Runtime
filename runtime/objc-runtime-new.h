@@ -220,9 +220,9 @@ struct entsize_list_tt {
 
 // MARK: - method结构声明
 struct method_t {
-    SEL name;
-    const char *types;
-    MethodListIMP imp;
+    SEL name;//SEL
+    const char *types;//方法参数和类型
+    MethodListIMP imp;//imp
 
     struct SortBySELAddress :
         public std::binary_function<const method_t&,

@@ -221,6 +221,7 @@ const char *object_getClassName(id obj)
 }
 
 
+// MARK: - 获取SEL对应的IMP
 /***********************************************************************
  * object_getMethodImplementation.
  **********************************************************************/
@@ -730,13 +731,13 @@ BOOL class_respondsToMethod(Class cls, SEL sel)
     return class_respondsToSelector(cls, sel);
 }
 
-
+// MARK: - 是否响应某个方法
 BOOL class_respondsToSelector(Class cls, SEL sel)
 {
     return class_respondsToSelector_inst(cls, sel, nil);
 }
 
-
+// MARK: - 是否响应某个方法,其内部是通过获取IMP是否存在来判断
 // inst is an instance of cls or a subclass thereof, or nil if none is known.
 // Non-nil inst is faster in some cases. See lookUpImpOrForward() for details.
 bool class_respondsToSelector_inst(Class cls, SEL sel, id inst)
@@ -905,6 +906,7 @@ size_t class_getInstanceSize(Class cls)
 }
 
 
+// MARK: - 获取一个方法的参数数量
 /***********************************************************************
 * method_getNumberOfArguments.
 **********************************************************************/
@@ -914,13 +916,13 @@ unsigned int method_getNumberOfArguments(Method m)
     return encoding_getNumberOfArguments(method_getTypeEncoding(m));
 }
 
-
+// MARK: - 获取方法返回值类型
 void method_getReturnType(Method m, char *dst, size_t dst_len)
 {
     encoding_getReturnType(method_getTypeEncoding(m), dst, dst_len);
 }
 
-
+// MARK: - 获取方法的返回值类型
 char * method_copyReturnType(Method m)
 {
     return encoding_copyReturnType(method_getTypeEncoding(m));
@@ -935,6 +937,7 @@ void method_getArgumentType(Method m, unsigned int index,
 }
 
 
+// MARK: - 获取方法某个参数类型
 char * method_copyArgumentType(Method m, unsigned int index)
 {
     return encoding_copyArgumentType(method_getTypeEncoding(m), index);
