@@ -770,17 +770,21 @@ IMP class_lookupMethod(Class cls, SEL sel)
     return class_getMethodImplementation(cls, sel);
 }
 
+// MARK: - 获取IMP实现
 IMP class_getMethodImplementation(Class cls, SEL sel)
 {
     IMP imp;
 
     if (!cls  ||  !sel) return nil;
 
+    // 获取IMP
     imp = lookUpImpOrNil(cls, sel, nil, 
                          YES/*initialize*/, YES/*cache*/, YES/*resolver*/);
 
     // Translate forwarding function to C-callable external version
     if (!imp) {
+        
+        // 若imp不存在 启动消息转发
         return _objc_msgForward;
     }
 

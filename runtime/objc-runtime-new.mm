@@ -4845,6 +4845,7 @@ IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
 }
 
 
+// MARK: - 获取imp,先从缓存中查找imp,如果存在直接返回imp.
 /***********************************************************************
 * lookUpImpOrForward.
 * The standard IMP lookup. 
@@ -4901,11 +4902,13 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
  retry:    
     runtimeLock.assertLocked();
 
+    // 从缓存中尝试查找IMP
     // Try this class's cache.
 
     imp = cache_getImp(cls, sel);
     if (imp) goto done;
 
+    // 从本类的方法列表中尝试查找IMP
     // Try this class's method lists.
     {
         Method meth = getMethodNoSuper_nolock(cls, sel);
@@ -4916,6 +4919,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
         }
     }
 
+    // 从父类的方法列表中尝试查找IMP
     // Try superclass caches and method lists.
     {
         unsigned attempts = unreasonableClassCount();
@@ -4954,6 +4958,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
         }
     }
 
+    // 如果以上过程都没有找到,尝试一次动态方法解析
     // No implementation found. Try method resolver once.
 
     if (resolver  &&  !triedResolver) {
@@ -4966,6 +4971,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
         goto retry;
     }
 
+    // 如果方法解析也没有IMP,启动消息转发
     // No implementation found, and method resolver didn't help. 
     // Use forwarding.
 
@@ -4979,6 +4985,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
 }
 
 
+// MARK: - 获取imp
 /***********************************************************************
 * lookUpImpOrNil.
 * Like lookUpImpOrForward, but returns nil instead of _objc_msgForward_impcache
@@ -4986,7 +4993,10 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
 IMP lookUpImpOrNil(Class cls, SEL sel, id inst, 
                    bool initialize, bool cache, bool resolver)
 {
+    // 获取imp
     IMP imp = lookUpImpOrForward(cls, sel, inst, initialize, cache, resolver);
+    
+    // 如果这个imp有过消息转发的缓存,直接返回nil,说明这个imp不存在或之类
     if (imp == _objc_msgForward_impcache) return nil;
     else return imp;
 }

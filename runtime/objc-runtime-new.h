@@ -218,7 +218,7 @@ struct entsize_list_tt {
     };
 };
 
-
+// MARK: - method结构声明
 struct method_t {
     SEL name;
     const char *types;

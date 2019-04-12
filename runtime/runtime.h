@@ -525,6 +525,8 @@ OBJC_EXPORT Ivar _Nonnull * _Nullable
 class_copyIvarList(Class _Nullable cls, unsigned int * _Nullable outCount) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+
+// MARK: - 根据SEL获取实例Method
 /** 
  * Returns a specified instance method for a given class.
  * 
@@ -541,6 +543,7 @@ OBJC_EXPORT Method _Nullable
 class_getInstanceMethod(Class _Nullable cls, SEL _Nonnull name)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 跟SEL获取类Method
 /** 
  * Returns a pointer to the data structure describing a given class method for a given class.
  * 
@@ -558,6 +561,7 @@ OBJC_EXPORT Method _Nullable
 class_getClassMethod(Class _Nullable cls, SEL _Nonnull name)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 返回一个函数实现指针
 /** 
  * Returns the function pointer that would be called if a 
  * particular message were sent to an instance of a class.
