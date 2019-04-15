@@ -24,6 +24,10 @@ int main(int argc, const char * argv[]) {
         [person name];
         
         [person name];
+        
+        
+        Class cls = [Person class];
+        
     }
     return 0;
 }

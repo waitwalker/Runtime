@@ -817,6 +817,7 @@ attachCategories(Class cls, category_list *cats, bool flush_caches)
 }
 
 
+// MARK: - 将ro中的方法,属性,协议等列表添加到rw中对应的三个成员变量列表中
 /***********************************************************************
 * methodizeClass
 * Fixes up cls's method list, protocol list, and property list.
@@ -837,6 +838,7 @@ static void methodizeClass(Class cls)
                      cls->nameForLogging(), isMeta ? "(meta)" : "");
     }
 
+    // 遍历ro中方法将其加入到rw methods中
     // Install methods and properties that the class implements itself.
     method_list_t *list = ro->baseMethods();
     if (list) {
@@ -844,11 +846,13 @@ static void methodizeClass(Class cls)
         rw->methods.attachLists(&list, 1);
     }
 
+    // 遍历ro中属性列表将其加入到 rw properties中
     property_list_t *proplist = ro->baseProperties;
     if (proplist) {
         rw->properties.attachLists(&proplist, 1);
     }
 
+    // 遍历ro中协议列表将其加入到 rw protocols中
     protocol_list_t *protolist = ro->baseProtocols;
     if (protolist) {
         rw->protocols.attachLists(&protolist, 1);
@@ -1879,6 +1883,8 @@ static Class realizeClass(Class cls)
         ro = cls->data()->ro;
         cls->changeInfo(RW_REALIZED|RW_REALIZING, RW_FUTURE);
     } else {
+        
+        // 将ro等信息赋值给class_rw_t
         // Normal class. Allocate writeable class data.
         rw = (class_rw_t *)calloc(sizeof(class_rw_t), 1);
         rw->ro = ro;
