@@ -1337,6 +1337,7 @@ struct objc_class : objc_object {
     // May be unaligned depending on class's ivars.
     uint32_t unalignedInstanceSize() {
         assert(isRealized());
+        // 返回一个类中所有成员变量的size
         return data()->ro->instanceSize;
     }
 

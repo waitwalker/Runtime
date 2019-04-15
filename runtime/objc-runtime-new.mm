@@ -4130,7 +4130,7 @@ class_copyMethodList(Class cls, unsigned int *outCount)
     return result;
 }
 
-
+// 获取一个类的所有成员变量
 /***********************************************************************
 * class_copyIvarList
 * fixme

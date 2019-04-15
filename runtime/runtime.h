@@ -237,6 +237,7 @@ object_setInstanceVariable(id _Nullable obj, const char * _Nonnull name,
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0)
     OBJC_ARC_UNAVAILABLE;
 
+// MARK: - 修改一个strong修饰的ivar的值
 /** 
  * Changes the value of an instance variable of a class instance.
  * 
@@ -259,6 +260,7 @@ object_setInstanceVariableWithStrongDefault(id _Nullable obj,
     OBJC_AVAILABLE(10.12, 10.0, 10.0, 3.0, 2.0)
     OBJC_ARC_UNAVAILABLE;
 
+// MARK: - 获取一个类的实例的成员变量(的值)
 /** 
  * Obtains the value of an instance variable of a class instance.
  * 
@@ -473,6 +475,7 @@ OBJC_EXPORT void
 class_setVersion(Class _Nullable cls, int version)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个类所有成员变量的size
 /** 
  * Returns the size of instances of a class.
  * 
@@ -484,6 +487,7 @@ OBJC_EXPORT size_t
 class_getInstanceSize(Class _Nullable cls) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 根据成员变量名称获取某个类中的成员变量(objc_getInstanceVariable中调用的就是此函数)
 /** 
  * Returns the \c Ivar for a specified instance variable of a given class.
  * 
@@ -497,6 +501,7 @@ OBJC_EXPORT Ivar _Nullable
 class_getInstanceVariable(Class _Nullable cls, const char * _Nonnull name)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 通过名称获取类成员变量
 /** 
  * Returns the Ivar for a specified class variable of a given class.
  * 
@@ -509,6 +514,7 @@ OBJC_EXPORT Ivar _Nullable
 class_getClassVariable(Class _Nullable cls, const char * _Nonnull name) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个类的所有成员变量
 /** 
  * Describes the instance variables declared by a class.
  * 

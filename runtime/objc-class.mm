@@ -367,7 +367,7 @@ void object_setIvarWithStrongDefault(id obj, Ivar ivar, id value)
     return _object_setIvar(obj, ivar, value, true /*strong default*/);
 }
 
-
+// 获取成员变量
 id object_getIvar(id obj, Ivar ivar)
 {
     if (!obj  ||  !ivar  ||  obj->isTaggedPointer()) return nil;
@@ -416,7 +416,7 @@ Ivar object_setInstanceVariableWithStrongDefault(id obj, const char *name,
     return _object_setInstanceVariable(obj, name, value, true);
 }
 
-
+// 获取实例的成员变量
 Ivar object_getInstanceVariable(id obj, const char *name, void **value)
 {
     if (obj  &&  name  &&  !obj->isTaggedPointer()) {
@@ -693,7 +693,7 @@ Method class_getClassMethod(Class cls, SEL sel)
     return class_getInstanceMethod(cls->getMeta(), sel);
 }
 
-
+// MARK: - 根据名称获取一个类中的成员变量
 /***********************************************************************
 * class_getInstanceVariable.  Return the named instance variable.
 **********************************************************************/
@@ -705,6 +705,7 @@ Ivar class_getInstanceVariable(Class cls, const char *name)
 }
 
 
+// 获取类中的类成员变量
 /***********************************************************************
 * class_getClassVariable.  Return the named class variable.
 **********************************************************************/
@@ -903,7 +904,7 @@ BOOL class_isMetaClass(Class cls)
     return cls->isMetaClass();
 }
 
-
+// 获取一个类所有成员变量的size
 size_t class_getInstanceSize(Class cls)
 {
     if (!cls) return 0;
