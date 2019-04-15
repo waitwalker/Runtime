@@ -332,7 +332,7 @@ _class_getIvarMemoryManagement(Class cls, Ivar ivar)
     return memoryManagement;
 }
 
-
+// MARK: - 更新ivar的值
 static ALWAYS_INLINE 
 void _object_setIvar(id obj, Ivar ivar, id value, bool assumeStrong)
 {
@@ -386,6 +386,7 @@ id object_getIvar(id obj, Ivar ivar)
 }
 
 
+// 修改一个成员变量的值
 static ALWAYS_INLINE 
 Ivar _object_setInstanceVariable(id obj, const char *name, void *value, 
                                  bool assumeStrong)
@@ -393,13 +394,17 @@ Ivar _object_setInstanceVariable(id obj, const char *name, void *value,
     Ivar ivar = nil;
 
     if (obj  &&  name  &&  !obj->isTaggedPointer()) {
+        // 首先根据成员变量名称从ivar_list中获取ivar
         if ((ivar = _class_getVariable(obj->ISA(), name))) {
+            
+            // 更新ivar的value
             _object_setIvar(obj, ivar, (id)value, assumeStrong);
         }
     }
     return ivar;
 }
 
+// 修改一个类的成员变量的值
 Ivar object_setInstanceVariable(id obj, const char *name, void *value)
 {
     return _object_setInstanceVariable(obj, name, value, false);

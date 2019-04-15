@@ -217,7 +217,7 @@ private:
 
 #if __OBJC2__
 typedef struct method_t *Method;
-typedef struct ivar_t *Ivar;
+typedef struct ivar_t *Ivar;// Ivar声明结构
 typedef struct category_t *Category;
 typedef struct property_t *objc_property_t;
 #else

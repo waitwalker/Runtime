@@ -245,8 +245,8 @@ struct ivar_t {
     // offset for their benefit.
 #endif
     int32_t *offset;
-    const char *name;
-    const char *type;
+    const char *name;//成员变量名称
+    const char *type;//成员变量类型
     // alignment is sometimes -1; use alignment() instead
     uint32_t alignment_raw;
     uint32_t size;

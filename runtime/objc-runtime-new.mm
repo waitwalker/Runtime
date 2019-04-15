@@ -5598,6 +5598,7 @@ class_setWeakIvarLayout(Class cls, const uint8_t *layout)
 }
 
 
+// MARK: - 根据成员变量名称获取成员变量
 /***********************************************************************
 * getIvar
 * Look up an ivar by name.
@@ -5645,6 +5646,7 @@ Class _class_getClassForIvar(Class cls, Ivar ivar)
 }
 
 
+// MARK: - 根据成员变量名称获取成员变量
 /***********************************************************************
 * _class_getVariable
 * fixme
