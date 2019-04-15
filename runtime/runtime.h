@@ -672,6 +672,7 @@ OBJC_EXPORT Protocol * __unsafe_unretained _Nonnull * _Nullable
 class_copyProtocolList(Class _Nullable cls, unsigned int * _Nullable outCount)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 根据名称获取一个类的属性
 /** 
  * Returns a property with a given name of a given class.
  * 
@@ -686,6 +687,7 @@ OBJC_EXPORT objc_property_t _Nullable
 class_getProperty(Class _Nullable cls, const char * _Nonnull name)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取一个类的属性列表
 /** 
  * Describes the properties declared by a class.
  * 

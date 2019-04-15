@@ -4167,6 +4167,7 @@ class_copyIvarList(Class cls, unsigned int *outCount)
 }
 
 
+// 获取一个类的属性列表
 /***********************************************************************
 * class_copyPropertyList. Returns a heap block containing the 
 * properties declared in the class, or nil if the class 
@@ -4187,6 +4188,7 @@ class_copyPropertyList(Class cls, unsigned int *outCount)
     checkIsKnownClass(cls);
     assert(cls->isRealized());
     
+    // 先获取rw
     auto rw = cls->data();
 
     property_t **result = nil;
@@ -5048,6 +5050,7 @@ IMP lookupMethodInClassAndLoadCache(Class cls, SEL sel)
 }
 
 
+// 根据名称获取一个类中的属性
 /***********************************************************************
 * class_getProperty
 * fixme
