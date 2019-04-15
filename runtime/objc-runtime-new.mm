@@ -3097,7 +3097,7 @@ ivar_getOffset(Ivar ivar)
     return *ivar->offset;
 }
 
-
+// 获取成员变量名称
 /***********************************************************************
 * ivar_getName
 * fixme
@@ -3110,7 +3110,7 @@ ivar_getName(Ivar ivar)
     return ivar->name;
 }
 
-
+// 获取成员变量名称
 /***********************************************************************
 * ivar_getTypeEncoding
 * fixme
@@ -3124,12 +3124,13 @@ ivar_getTypeEncoding(Ivar ivar)
 }
 
 
-
+// 获取属性名称
 const char *property_getName(objc_property_t prop)
 {
     return prop->name;
 }
 
+// 获取属性的内存管理语义
 const char *property_getAttributes(objc_property_t prop)
 {
     return prop->attributes;
@@ -3458,6 +3459,7 @@ protocol_t::demangledName()
     return _demangledName;
 }
 
+// 获取协议名称
 /***********************************************************************
 * protocol_getName
 * Returns the (Swift-demangled) name of the given protocol.
@@ -3637,6 +3639,7 @@ protocol_getProperty_nolock(protocol_t *proto, const char *name,
     return nil;
 }
 
+// 获取协议中的某个属性
 objc_property_t protocol_getProperty(Protocol *p, const char *name, 
                               BOOL isRequiredProperty, BOOL isInstanceProperty)
 {
@@ -3679,6 +3682,7 @@ copyPropertyList(property_list_t *plist, unsigned int *outCount)
     return result;
 }
 
+// 获取协议属性列表
 objc_property_t *
 protocol_copyPropertyList2(Protocol *proto, unsigned int *outCount, 
                            BOOL isRequiredProperty, BOOL isInstanceProperty)
@@ -3697,6 +3701,7 @@ protocol_copyPropertyList2(Protocol *proto, unsigned int *outCount,
     return (objc_property_t *)copyPropertyList(plist, outCount);
 }
 
+// 获取协议属性列表
 objc_property_t *
 protocol_copyPropertyList(Protocol *proto, unsigned int *outCount)
 {
@@ -4044,6 +4049,7 @@ objc_copyClassList(unsigned int *outCount)
 }
 
 
+// 获取运行时所有的协议列表
 /***********************************************************************
 * objc_copyProtocolList
 * Returns pointers to all protocols.
@@ -4082,6 +4088,7 @@ objc_copyProtocolList(unsigned int *outCount)
 }
 
 
+// 获取协议
 /***********************************************************************
 * objc_getProtocol
 * Get a protocol by name, or return nil
@@ -5869,7 +5876,7 @@ class_replaceMethodsBulk(Class cls, const SEL *names, const IMP *imps,
     addMethods(cls, names, imps, types, count, YES, nil);
 }
 
-
+// 给一个类添加成员变量
 /***********************************************************************
 * class_addIvar
 * Adds an ivar to a class.
@@ -5947,7 +5954,7 @@ class_addIvar(Class cls, const char *name, size_t size,
     return YES;
 }
 
-
+// 给一个类添加协议
 /***********************************************************************
 * class_addProtocol
 * Adds a protocol to a class.
@@ -5970,6 +5977,7 @@ BOOL class_addProtocol(Class cls, Protocol *protocol_gen)
     protolist->count = 1;
     protolist->list[0] = (protocol_ref_t)protocol;
 
+    // 添加到protocols里面
     cls->data()->protocols.attachLists(&protolist, 1);
 
     // fixme metaclass?
@@ -5977,7 +5985,7 @@ BOOL class_addProtocol(Class cls, Protocol *protocol_gen)
     return YES;
 }
 
-
+// 给一个类添加属性
 /***********************************************************************
 * class_addProperty
 * Adds a property to a class.
@@ -6021,6 +6029,7 @@ _class_addProperty(Class cls, const char *name,
     }
 }
 
+// 给一个类添加属性
 BOOL 
 class_addProperty(Class cls, const char *name, 
                   const objc_property_attribute_t *attrs, unsigned int n)
@@ -6028,6 +6037,7 @@ class_addProperty(Class cls, const char *name,
     return _class_addProperty(cls, name, attrs, n, NO);
 }
 
+// 更新某个属性
 void 
 class_replaceProperty(Class cls, const char *name, 
                       const objc_property_attribute_t *attrs, unsigned int n)

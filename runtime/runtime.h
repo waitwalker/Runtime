@@ -770,6 +770,7 @@ class_replaceMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp,
                     const char * _Nullable types) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 给一个类添加成员变量:必须在调用objc_allocateClassPair之后在objc_registerClassPair之前
 /** 
  * Adds a new instance variable to a class.
  * 
@@ -788,6 +789,7 @@ class_addIvar(Class _Nullable cls, const char * _Nonnull name, size_t size,
               uint8_t alignment, const char * _Nullable types) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 给一个类添加协议
 /** 
  * Adds a protocol to a class.
  * 
@@ -801,6 +803,7 @@ OBJC_EXPORT BOOL
 class_addProtocol(Class _Nullable cls, Protocol * _Nonnull protocol) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 给一个类添加属性
 /** 
  * Adds a property to a class.
  * 
@@ -818,6 +821,7 @@ class_addProperty(Class _Nullable cls, const char * _Nonnull name,
                   unsigned int attributeCount)
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
+// MARK: - 更新某个属性值
 /** 
  * Replace a property of a class. 
  * 
@@ -867,7 +871,7 @@ objc_getFutureClass(const char * _Nonnull name)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0)
     OBJC_ARC_UNAVAILABLE;
 
-
+// MARK: - 创建实例
 /* Instantiating Classes */
 
 /** 
@@ -904,6 +908,7 @@ objc_constructInstance(Class _Nullable cls, void * _Nullable bytes)
     OBJC_AVAILABLE(10.6, 3.0, 9.0, 1.0, 2.0)
     OBJC_ARC_UNAVAILABLE;
 
+// MARK: - 销毁一个实例
 /** 
  * Destroys an instance of a class without freeing memory and removes any
  * associated references this instance might have had.
@@ -1128,6 +1133,7 @@ method_exchangeImplementations(Method _Nonnull m1, Method _Nonnull m2)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
 
+// MARK: - 获取成员变量名称
 /* Working with Instance Variables */
 
 /** 
@@ -1141,6 +1147,7 @@ OBJC_EXPORT const char * _Nullable
 ivar_getName(Ivar _Nonnull v) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取成员变量类型
 /** 
  * Returns the type string of an instance variable.
  * 
@@ -1169,6 +1176,7 @@ ivar_getOffset(Ivar _Nonnull v)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
 
+// MARK: - 获取属性名称
 /* Working with Properties */
 
 /** 
@@ -1182,6 +1190,7 @@ OBJC_EXPORT const char * _Nonnull
 property_getName(objc_property_t _Nonnull property) 
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取属性的内存管理语义相关
 /** 
  * Returns the attribute string of a property.
  * 
@@ -1222,7 +1231,7 @@ property_copyAttributeValue(objc_property_t _Nonnull property,
                             const char * _Nonnull attributeName)
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
-
+// MARK: - 根据名称获取一个协议
 /* Working with Protocols */
 
 /** 
@@ -1238,6 +1247,7 @@ OBJC_EXPORT Protocol * _Nullable
 objc_getProtocol(const char * _Nonnull name)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取运行时所有的协议列表
 /** 
  * Returns an array of all the protocols known to the runtime.
  * 
@@ -1252,6 +1262,7 @@ OBJC_EXPORT Protocol * __unsafe_unretained _Nonnull * _Nullable
 objc_copyProtocolList(unsigned int * _Nullable outCount)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 判断一个协议是否遵守另一个协议
 /** 
  * Returns a Boolean value that indicates whether one protocol conforms to another protocol.
  * 
@@ -1272,6 +1283,7 @@ protocol_conformsToProtocol(Protocol * _Nullable proto,
                             Protocol * _Nullable other)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 两个协议是否相等
 /** 
  * Returns a Boolean value that indicates whether two protocols are equal.
  * 
@@ -1284,6 +1296,7 @@ OBJC_EXPORT BOOL
 protocol_isEqual(Protocol * _Nullable proto, Protocol * _Nullable other)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取某个协议名称
 /** 
  * Returns the name of a protocol.
  * 
@@ -1339,6 +1352,7 @@ protocol_copyMethodDescriptionList(Protocol * _Nonnull proto,
                                    unsigned int * _Nullable outCount)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取某个协议中的某个属性
 /** 
  * Returns the specified property of a given protocol.
  * 
@@ -1356,6 +1370,7 @@ protocol_getProperty(Protocol * _Nonnull proto,
                      BOOL isRequiredProperty, BOOL isInstanceProperty)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 获取协议的属性列表
 /** 
  * Returns an array of the required instance properties declared by a protocol.
  * 
@@ -1403,6 +1418,7 @@ protocol_copyProtocolList(Protocol * _Nonnull proto,
                           unsigned int * _Nullable outCount)
     OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
 
+// MARK: - 运行时创建一个协议
 /** 
  * Creates a new protocol instance that cannot be used until registered with
  * \c objc_registerProtocol()
@@ -1417,6 +1433,7 @@ OBJC_EXPORT Protocol * _Nullable
 objc_allocateProtocol(const char * _Nonnull name) 
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
+// MARK: - 运行时注册一个协议
 /** 
  * Registers a newly constructed protocol with the runtime. The protocol
  * will be ready for use and is immutable after this.
@@ -1427,6 +1444,7 @@ OBJC_EXPORT void
 objc_registerProtocol(Protocol * _Nonnull proto) 
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
+// MARK: - 为协议添加一个方法
 /** 
  * Adds a method to a protocol. The protocol must be under construction.
  * 
@@ -1442,6 +1460,7 @@ protocol_addMethodDescription(Protocol * _Nonnull proto, SEL _Nonnull name,
                               BOOL isRequiredMethod, BOOL isInstanceMethod) 
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
+// MARK: - 为协议添加一个协议
 /** 
  * Adds an incorporated protocol to another protocol. The protocol being
  * added to must still be under construction, while the additional protocol
@@ -1454,6 +1473,7 @@ OBJC_EXPORT void
 protocol_addProtocol(Protocol * _Nonnull proto, Protocol * _Nonnull addition) 
     OBJC_AVAILABLE(10.7, 4.3, 9.0, 1.0, 2.0);
 
+// MARK: - 为协议添加一个属性
 /** 
  * Adds a property to a protocol. The protocol must be under construction. 
  * 

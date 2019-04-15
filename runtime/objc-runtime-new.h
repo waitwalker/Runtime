@@ -301,12 +301,12 @@ typedef uintptr_t protocol_ref_t;  // protocol_t *, but unremapped
 // MARK: - 协议的声明结构
 struct protocol_t : objc_object {
     const char *mangledName;
-    struct protocol_list_t *protocols;
-    method_list_t *instanceMethods;
-    method_list_t *classMethods;
-    method_list_t *optionalInstanceMethods;
-    method_list_t *optionalClassMethods;
-    property_list_t *instanceProperties;
+    struct protocol_list_t *protocols; //协议列表
+    method_list_t *instanceMethods;//实例方法列表
+    method_list_t *classMethods;//类方法列表
+    method_list_t *optionalInstanceMethods;//可选的实例方法列表
+    method_list_t *optionalClassMethods;//可选的类方法列表
+    property_list_t *instanceProperties;//属性列表
     uint32_t size;   // sizeof(protocol_t)
     uint32_t flags;
     // Fields below this point are not always present on disk.
