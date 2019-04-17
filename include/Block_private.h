@@ -36,12 +36,14 @@ extern "C" {
         BLOCK_HAS_EXTENDED_LAYOUT=(1 << 31)  // compiler
     };
     
+    // MARK: - block 附件信息1
 #define BLOCK_DESCRIPTOR_1 1
     struct Block_descriptor_1 {
         uintptr_t reserved;
         uintptr_t size;
     };
     
+    // MARK: - block 附件信息2
 #define BLOCK_DESCRIPTOR_2 1
     struct Block_descriptor_2 {
         // requires BLOCK_HAS_COPY_DISPOSE
@@ -49,6 +51,7 @@ extern "C" {
         void (*dispose)(const void *);
     };
     
+    // MARK: - block 附件信息3
 #define BLOCK_DESCRIPTOR_3 1
     struct Block_descriptor_3 {
         // requires BLOCK_HAS_SIGNATURE
@@ -56,6 +59,7 @@ extern "C" {
         const char *layout;     // contents depend on BLOCK_HAS_EXTENDED_LAYOUT
     };
     
+    // MARK: - blcok声明结构
     struct Block_layout {
         void *isa;
         volatile int32_t flags; // contains ref count
