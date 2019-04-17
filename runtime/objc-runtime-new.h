@@ -1392,7 +1392,7 @@ struct swift_class_t : objc_class {
     }
 };
 
-
+// MARK: - category 完整声明结构
 struct category_t {
     const char *name;
     classref_t cls;
