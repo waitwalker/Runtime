@@ -37,6 +37,7 @@ Xcode: **10.1**<br>
 解决:这个文件并没有再我们下载的依赖库中,需要去开源官网下载,然后操作同上一步<br>
 
 **5)以下是遇到的类似问题:**
+
 'os/base_private.h' file not found;<br>
 'pthread/tsd_private.h' file not found;<br>
 'System/machine/cpu_capabilities.h' file not found;<br>
@@ -110,8 +111,18 @@ return 0;
 
 ![debug_2](http://upload-images.jianshu.io/upload_images/1715253-41cd2b1e03f16de5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ### 四.编译后源码库
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在[Github](https://github.com/waitwalker/Runtime)**
-### 五.参考文献
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在[Github](https://github.com/waitwalker/Runtime), 如果对你有帮助,请给一个star吧!**
+
+### 五.博客地址&相关文章
+**博客地址:** https://waitwalker.github.io/
+系列文章:
+[Runtime源码编译](https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/)
+[objc_object解读](https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/)
+[Method解读](https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/)
+[Class解读](https://waitwalker.github.io/2019/04/15/Class%E8%A7%A3%E8%AF%BB/)
+[Ivar objc_property_t Protocol解读](https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/)
+
+### 六.参考文献
 [https://pewpewthespells.com/blog/buildsettings.html](https://pewpewthespells.com/blog/buildsettings.html)<br>
 [https://blog.csdn.net/wotors/article/details/52489464](https://blog.csdn.net/wotors/article/details/52489464)
 
