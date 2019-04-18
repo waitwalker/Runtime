@@ -9,29 +9,34 @@
 #### 2.下载objc4相关依赖库
 objc4相关依赖库:Libc，dyld，libauto，libclosure，libdispatch，libpthread，xnu.这些依赖库中包含了Runtime源码库中需要的一些文件.
 #### 3.解压缩所有下载的压缩包库.
-<br>
+
 ![源码解压后](http://upload-images.jianshu.io/upload_images/1715253-fabaa6bd03263beb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ### 二.编译&错误解决<br>
 #### 1.环境:
-target platform:**macOS**<br>
-macOS:**10.14**<br>
-Xcode:**10.1**<br>
+target platform: **macOS**<br>
+macOS: **10.14**<br>
+Xcode: **10.1**<br>
 #### 2.遇到的错误&解决
 **1)error: The i386 architecture is deprecated. You should update your ARCHS build setting to remove the i386 architecture. (in target 'objc')**<br>
 解决:找target对应编译设置(Build Settings)->CPU架构(Architecture)->标准(Standard arcgutectures)
-<br>
+
 ![错误1](http://upload-images.jianshu.io/upload_images/1715253-bebc4c3e29d47f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**2)在objc-os.h头文件中报'sys/reason.h' file not found错误**<br>
+
+**2)在objc-os.h头文件中报'sys/reason.h' file not found错误**
+
 解决:工程目录下创建include/sys目录,在编译设置(Build Settings里面搜索,Header Search Paths,然后将include索引添加进去),然后在之前下载的依赖包中搜索reason.h头文件,复制到include/sys目录下
-<br>
+
 ![错误2](http://upload-images.jianshu.io/upload_images/1715253-149cea545b66f79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**3)在objc-os.h头文件中报'mach-o/dyld_priv.h' file not found错误**<br>
+**3)在objc-os.h头文件中报'mach-o/dyld_priv.h' file not found错误**
 解决:同上一步,创建include/mach-o目录,复制dyld_priv.h头文件到相应目录
-<br>
+
 ![错误3](http://upload-images.jianshu.io/upload_images/1715253-7a009d4875664966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**4)在objc-os.h头文件中报'os/lock_private.h' file not found错误**<br>
+
+**4)在objc-os.h头文件中报'os/lock_private.h' file not found错误**
+
 解决:这个文件并没有再我们下载的依赖库中,需要去开源官网下载,然后操作同上一步<br>
-**5)以下是遇到的类似问题:**<br>
+
+**5)以下是遇到的类似问题:**
 'os/base_private.h' file not found;<br>
 'pthread/tsd_private.h' file not found;<br>
 'System/machine/cpu_capabilities.h' file not found;<br>
@@ -44,33 +49,43 @@ Xcode:**10.1**<br>
 'isa.h' file not found;<br>
 '_simple.h' file not found;<br>
 在objc-errors.mm文件中报:Use of undeclared identifier 'CRGetCrashLogMessage'错误;<br>
-<br>
+
 ![错误5](http://upload-images.jianshu.io/upload_images/1715253-7730fb32289af992.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**6)链接时候错误:**<br>
+
+**6)链接时候错误:**
+
 ld: can't open order file: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/AppleInternal/OrderFiles/libobjc.order
-clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
 解决:将Build Settings->Linking->Order File改为工程根目录下的libobjc.order，即：$(SRCROOT)/libobjc.order。
-<br>
+
 ![错误6](http://upload-images.jianshu.io/upload_images/1715253-81be9877600720d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**7)编译脚本错误**<br>
+
+**7)编译脚本错误**
 xcodebuild: error: SDK "macosx.internal" cannot be located.
-xcrun: error: unable to find utility "clang++", not a developer tool or in PATH<br>
+xcrun: error: unable to find utility "clang++", not a developer tool or in PATH
+
 解决:把Target-objc的Build Phases->Run Script(markgc)里的内容macosx.internal改为macosx，这里猜测macosx.internal为苹果内部的macosx
-<br>
+
 ![错误7](http://upload-images.jianshu.io/upload_images/1715253-fe07a0f8d034da6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-**8)error: no such public header file: '/tmp/objc.dst/usr/include/objc/ObjectiveC.apinotes'错误**<br>
+
+**8)error: no such public header file: '/tmp/objc.dst/usr/include/objc/ObjectiveC.apinotes'错误**
+
 解决:把Text-Based InstallAPI Verification Model里的值改为Errors Only
-<br>
+
 ![错误8](http://upload-images.jianshu.io/upload_images/1715253-0bd60bd7502eb574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 #### 3.编译成功
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决以上错误后,再次编译应该基本Succeeded.
-<br>
-![编译成功](http://upload-images.jianshu.io/upload_images/1715253-d6481492106e77dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)<br>
-### 三.调试<br>
+
+![编译成功](http://upload-images.jianshu.io/upload_images/1715253-d6481492106e77dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 三.调试
 #### 1.创建调试target
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文编译针对的是macOS平台,可以创建一个macOS app或者一个 Command Line Tool 来调试.这里我们就创建一个Command Line Tool target:
-<br>
+
 ![debug target](http://upload-images.jianshu.io/upload_images/1715253-5b9356137395b41e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 #### 2.编写代码调试
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新创建一个class,命名为newClass,打印出class name.可以查看调用栈,确实调用的是我们编译后的Runtime库:
 ```
@@ -90,8 +105,9 @@ NSLog(@"Hello, World!");
 return 0;
 }
 ```
-<br>
+
 ![debug_1](http://upload-images.jianshu.io/upload_images/1715253-ff32f2b6e67bfb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![debug_2](http://upload-images.jianshu.io/upload_images/1715253-41cd2b1e03f16de5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ### 四.编译后源码库
 **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在[Github](https://github.com/waitwalker/Runtime)**
