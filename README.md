@@ -128,6 +128,8 @@ return 0;
 
 [5. Ivar objc_property_t Protocol解读](https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/)
 
+[6. Block解读](https://waitwalker.github.io/2019/04/18/Block解读/)
+
 ### 六.参考文献
 [https://pewpewthespells.com/blog/buildsettings.html](https://pewpewthespells.com/blog/buildsettings.html)<br>
 [https://blog.csdn.net/wotors/article/details/52489464](https://blog.csdn.net/wotors/article/details/52489464)
