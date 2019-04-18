@@ -25,16 +25,14 @@ int valueThree = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 静态局部变量
-    static int valueOne = 10;
+    // __block修饰的自动变量
+    __block int valueOne = 10;
     
     
-    // MARK: - 截获静态变量,全局变量
+    // MARK: - 截获__block修饰的自动变量
     void(^BlockOne)(void) = ^void(){
         valueOne = 1;
-        valueTwo = 2;
-        valueThree = 3;
-        NSLog(@"valueOne:%d,valueTwo:%d,valueThree:%d",valueOne,valueTwo,valueThree);
+        NSLog(@"valueOne:%d",valueOne);
         
     };
     
@@ -43,6 +41,8 @@ int valueThree = 30;
     
     // 调用block
     BlockOne();
+    
+    
     
 }
 
