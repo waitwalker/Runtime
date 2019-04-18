@@ -133,6 +133,7 @@
 		CA5887B7225B168700E277F1 /* MTTRuntimeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5887B6225B168700E277F1 /* MTTRuntimeUITests.m */; };
 		CA5887C5225B19A900E277F1 /* crt_externs.h in Headers */ = {isa = PBXBuildFile; fileRef = CA5887C4225B19A900E277F1 /* crt_externs.h */; };
 		CA5887CB225B22D100E277F1 /* shared_region.h in Headers */ = {isa = PBXBuildFile; fileRef = CA5887CA225B22D100E277F1 /* shared_region.h */; };
+		CA88DA0B2268281C00C4C87C /* Block.zip in Resources */ = {isa = PBXBuildFile; fileRef = CA88DA0A2268281C00C4C87C /* Block.zip */; };
 		E8923DA5116AB2820071B552 /* objc-block-trampolines.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8923DA0116AB2820071B552 /* objc-block-trampolines.mm */; };
 		F9BCC71B205C68E800DD9AFC /* objc-blocktramps-arm64.s in Sources */ = {isa = PBXBuildFile; fileRef = 8379996D13CBAF6F007C2B5F /* objc-blocktramps-arm64.s */; };
 /* End PBXBuildFile section */
@@ -322,6 +323,7 @@
 		CA5887B8225B168700E277F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA5887C4225B19A900E277F1 /* crt_externs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crt_externs.h; sourceTree = "<group>"; };
 		CA5887CA225B22D100E277F1 /* shared_region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shared_region.h; sourceTree = "<group>"; };
+		CA88DA0A2268281C00C4C87C /* Block.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Block.zip; sourceTree = "<group>"; };
 		D2AAC0630554660B00DB518D /* libobjc.A.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libobjc.A.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8923D9C116AB2820071B552 /* objc-blocktramps-i386.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "objc-blocktramps-i386.s"; path = "runtime/objc-blocktramps-i386.s"; sourceTree = "<group>"; };
 		E8923D9D116AB2820071B552 /* objc-blocktramps-x86_64.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "objc-blocktramps-x86_64.s"; path = "runtime/objc-blocktramps-x86_64.s"; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 		CA588791225B168400E277F1 /* MTTRuntime */ = {
 			isa = PBXGroup;
 			children = (
+				CA88DA09226827F500C4C87C /* Block */,
 				CA588792225B168400E277F1 /* AppDelegate.h */,
 				CA588793225B168400E277F1 /* AppDelegate.m */,
 				CA588795225B168400E277F1 /* ViewController.h */,
@@ -689,6 +692,14 @@
 				CA5887CA225B22D100E277F1 /* shared_region.h */,
 			);
 			path = mach;
+			sourceTree = "<group>";
+		};
+		CA88DA09226827F500C4C87C /* Block */ = {
+			isa = PBXGroup;
+			children = (
+				CA88DA0A2268281C00C4C87C /* Block.zip */,
+			);
+			path = Block;
 			sourceTree = "<group>";
 		};
 		F9BCC72A205C6A1600DD9AFC /* Frameworks */ = {
@@ -953,6 +964,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA58879F225B168700E277F1 /* LaunchScreen.storyboard in Resources */,
+				CA88DA0B2268281C00C4C87C /* Block.zip in Resources */,
 				CA58879C225B168700E277F1 /* Assets.xcassets in Resources */,
 				CA58879A225B168400E277F1 /* Main.storyboard in Resources */,
 			);
