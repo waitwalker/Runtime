@@ -19,13 +19,11 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%s",class_getName([newObject class]));
         NSLog(@"Hello, World!");
         
-        Person *person = [Person new];
         
+        Person *person = [[Person alloc]init];
+        Person *p2 = person;
         [person name];
-        
         [person name];
-        
-        
         Class cls = [Person class];
         
     }

@@ -239,6 +239,7 @@ objc_retain_autorelease(id obj)
 }
 
 
+// strong
 void
 objc_storeStrong(id *location, id obj)
 {
@@ -1585,7 +1586,7 @@ objc_object::sidetable_clearDeallocating()
 
 
 #if __OBJC2__
-
+// retain
 __attribute__((aligned(16)))
 id 
 objc_retain(id obj)
