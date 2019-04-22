@@ -89,6 +89,7 @@ typedef objc::DenseMap<DisguisedPtr<objc_object>,size_t,true> RefcountMap;
 enum HaveOld { DontHaveOld = false, DoHaveOld = true };
 enum HaveNew { DontHaveNew = false, DoHaveNew = true };
 
+// MARK: - sideTabel
 struct SideTable {
     spinlock_t slock;
     RefcountMap refcnts;
@@ -1335,6 +1336,7 @@ objc_object::sidetable_moveExtraRC_nolock(size_t extra_rc,
 }
 
 
+// MARK: - 将一些引用计数保存在side table中
 // Move some retain counts to the side table from the isa field.
 // Returns true if the object is now pinned.
 bool 

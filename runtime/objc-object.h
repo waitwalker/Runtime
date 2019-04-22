@@ -468,6 +468,7 @@ objc_object::rootTryRetain()
     return rootRetain(true, false) ? true : false;
 }
 
+// MARK: - rootRetian
 ALWAYS_INLINE id 
 objc_object::rootRetain(bool tryRetain, bool handleOverflow)
 {
@@ -481,6 +482,7 @@ objc_object::rootRetain(bool tryRetain, bool handleOverflow)
 
     do {
         transcribeToSideTable = false;
+        // 首先通过LoadExclusive()加载旧的oldisa
         oldisa = LoadExclusive(&isa.bits);
         newisa = oldisa;
         if (slowpath(!newisa.nonpointer)) {
@@ -496,14 +498,21 @@ objc_object::rootRetain(bool tryRetain, bool handleOverflow)
             return nil;
         }
         uintptr_t carry;
+        
+        // 引用计数加1
         newisa.bits = addc(newisa.bits, RC_ONE, 0, &carry);  // extra_rc++
 
+        // 判断extra_rc位数能否保存引用计数
         if (slowpath(carry)) {
+            
+            // extra_rc溢出;handleOverflow=false
             // newisa.extra_rc++ overflowed
             if (!handleOverflow) {
                 ClearExclusive(&isa.bits);
                 return rootRetain_overflow(tryRetain);
             }
+            
+            // 有溢出  将extra_rc置为最大值的一半
             // Leave half of the retain counts inline and 
             // prepare to copy the other half to the side table.
             if (!tryRetain && !sideTableLocked) sidetable_lock();
@@ -512,14 +521,17 @@ objc_object::rootRetain(bool tryRetain, bool handleOverflow)
             newisa.extra_rc = RC_HALF;
             newisa.has_sidetable_rc = true;
         }
-    } while (slowpath(!StoreExclusive(&isa.bits, oldisa.bits, newisa.bits)));
+    } while (slowpath(!StoreExclusive(&isa.bits, oldisa.bits, newisa.bits)));//存储
 
+    // 有溢出 将另一半的引用计数拷贝到side table里面
     if (slowpath(transcribeToSideTable)) {
         // Copy the other half of the retain counts to the side table.
         sidetable_addExtraRC_nolock(RC_HALF);
     }
 
     if (slowpath(!tryRetain && sideTableLocked)) sidetable_unlock();
+    
+    // 返回自身
     return (id)this;
 }
 
