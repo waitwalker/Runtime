@@ -734,7 +734,7 @@ objc_object::rootAutorelease()
     return rootAutorelease2();
 }
 
-
+// MARK: - 获取对象的引用计数
 inline uintptr_t 
 objc_object::rootRetainCount()
 {
@@ -744,8 +744,14 @@ objc_object::rootRetainCount()
     isa_t bits = LoadExclusive(&isa.bits);
     ClearExclusive(&isa.bits);
     if (bits.nonpointer) {
+        
+        // 引用计数 = 1 + extra_rc
         uintptr_t rc = 1 + bits.extra_rc;
+        
+        // 如果side table中有值
         if (bits.has_sidetable_rc) {
+            
+            // 再加上side table中的引用计数
             rc += sidetable_getExtraRC_nolock();
         }
         sidetable_unlock();
