@@ -42,7 +42,10 @@ int valueThree = 30;
     // 调用block
     BlockOne();
     
-    
+    // autoreleasepool
+    @autoreleasepool {
+        
+    }
     
 }
 

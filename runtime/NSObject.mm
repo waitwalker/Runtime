@@ -634,7 +634,8 @@ struct magic_t {
 #   undef M1
 };
     
-
+    
+// MARK: - AutoReleasepool class
 class AutoreleasePoolPage 
 {
     // EMPTY_POOL_PLACEHOLDER is stored in TLS when exactly one pool is 
@@ -654,11 +655,22 @@ class AutoreleasePoolPage
 #endif
     static size_t const COUNT = SIZE / sizeof(id);
 
+    // 校验完整性
     magic_t const magic;
+    
+    // next指针指向最新添加的autoreleased对象的下一个位置,初始化时指向begin()
     id *next;
+    
+    // 指向当前线程
     pthread_t const thread;
+    
+    // 父节点
     AutoreleasePoolPage * const parent;
+    
+    // 子节点
     AutoreleasePoolPage *child;
+    
+    // 节点深度
     uint32_t const depth;
     uint32_t hiwat;
 
@@ -921,6 +933,7 @@ class AutoreleasePoolPage
     }
 
 
+    // 创建一个page逻辑
     static inline id *autoreleaseFast(id obj)
     {
         AutoreleasePoolPage *page = hotPage();
@@ -1009,6 +1022,8 @@ class AutoreleasePoolPage
     }
 
 public:
+    
+    // autorelease
     static inline id autorelease(id obj)
     {
         assert(obj);
@@ -1018,11 +1033,13 @@ public:
         return obj;
     }
 
-
+    // push
     static inline void *push() 
     {
         id *dest;
         if (DebugPoolAllocation) {
+            
+            // 每一个autoreleasepool对象开始于一个新的autoreleasepoolpage
             // Each autorelease pool starts on a new pool page.
             dest = autoreleaseNewPage(POOL_BOUNDARY);
         } else {
@@ -1057,6 +1074,7 @@ public:
         objc_autoreleasePoolInvalid(token);
     }
     
+    // pop
     static inline void pop(void *token) 
     {
         AutoreleasePoolPage *page;
