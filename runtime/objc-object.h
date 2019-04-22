@@ -585,7 +585,11 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
 
  retry:
     do {
+        
+        // 首先加载旧的isa
         oldisa = LoadExclusive(&isa.bits);
+        
+        // 将旧的isa赋值给newisa
         newisa = oldisa;
         if (slowpath(!newisa.nonpointer)) {
             ClearExclusive(&isa.bits);
@@ -594,13 +598,17 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
         }
         // don't check newisa.fast_rr; we already called any RR overrides
         uintptr_t carry;
+        
+        // 将extra_rc减1
         newisa.bits = subc(newisa.bits, RC_ONE, 0, &carry);  // extra_rc--
+        
+        // 如果有越界的情况 即extra_rc < 0,走underflow
         if (slowpath(carry)) {
             // don't ClearExclusive()
             goto underflow;
         }
     } while (slowpath(!StoreReleaseExclusive(&isa.bits, 
-                                             oldisa.bits, newisa.bits)));
+                                             oldisa.bits, newisa.bits)));//更新isa的extra_rc
 
     if (slowpath(sideTableLocked)) sidetable_unlock();
     return false;
@@ -611,9 +619,12 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
     // abandon newisa to undo the decrement
     newisa = oldisa;
 
+    // 先判断isa的has_sidetable_rc是否为true
     if (slowpath(newisa.has_sidetable_rc)) {
         if (!handleUnderflow) {
             ClearExclusive(&isa.bits);
+            
+            // 调用rootRelease_underflow,处理越界情况
             return rootRelease_underflow(performDealloc);
         }
 
@@ -628,6 +639,7 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
             goto retry;
         }
 
+        // 从side table中获取引用计数
         // Try to remove some retain counts from the side table.        
         size_t borrowed = sidetable_subExtraRC_nolock(RC_HALF);
 
@@ -635,6 +647,8 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
         // even if the side table count is now zero.
 
         if (borrowed > 0) {
+            
+            // 如果borrowed(side table)的值大于1,将extra_rc中的引用计数赋值给extra_rc
             // Side table retain count decreased.
             // Try to add them to the inline count.
             newisa.extra_rc = borrowed - 1;  // redo the original decrement too
@@ -673,6 +687,7 @@ objc_object::rootRelease(bool performDealloc, bool handleUnderflow)
             return false;
         }
         else {
+            // 如果side table中值为空,则执行dealloc
             // Side table is empty after all. Fall-through to the dealloc path.
         }
     }
