@@ -345,6 +345,7 @@ void call_load_methods(void)
     if (loading) return;
     loading = YES;
 
+    // push
     void *pool = objc_autoreleasePoolPush();
 
     do {
@@ -359,6 +360,7 @@ void call_load_methods(void)
         // 3. Run more +loads if there are classes OR more untried categories
     } while (loadable_classes_used > 0  ||  more_categories);
 
+    // pop
     objc_autoreleasePoolPop(pool);
 
     loading = NO;

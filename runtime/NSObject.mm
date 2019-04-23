@@ -779,11 +779,16 @@ class AutoreleasePoolPage
         return (next - begin() < (end() - begin()) / 2);
     }
 
+    // 向page中添加released操作
     id *add(id obj)
     {
         assert(!full());
         unprotect();
+        
+        // 将next节点赋值给ret
         id *ret = next;  // faster than `return next-1` because of aliasing
+        
+        // 将released obj赋值给next
         *next++ = obj;
         protect();
         return ret;
@@ -794,28 +799,36 @@ class AutoreleasePoolPage
         releaseUntil(begin());
     }
 
+    // MARK: - 释放obj
     void releaseUntil(id *stop) 
     {
         // Not recursive: we don't want to blow out the stack 
         // if a thread accumulates a stupendous amount of garbage
         
+        // 遍历链表
         while (this->next != stop) {
             // Restart from hotPage() every time, in case -release 
             // autoreleased more objects
             AutoreleasePoolPage *page = hotPage();
 
             // fixme I think this `while` can be `if`, but I can't prove it
+            
+            // 获取page的父指针
             while (page->empty()) {
                 page = page->parent;
                 setHotPage(page);
             }
 
             page->unprotect();
+            
+            // 根据next指针缩小一个位置获取obj
             id obj = *--page->next;
             memset((void*)page->next, SCRIBBLE, sizeof(*page->next));
             page->protect();
 
             if (obj != POOL_BOUNDARY) {
+                
+                // 发送release 消息
                 objc_release(obj);
             }
         }
@@ -946,6 +959,7 @@ class AutoreleasePoolPage
         }
     }
 
+    // MARK: - 创建一个new page
     static __attribute__((noinline))
     id *autoreleaseFullPage(id obj, AutoreleasePoolPage *page)
     {
@@ -964,6 +978,7 @@ class AutoreleasePoolPage
         return page->add(obj);
     }
 
+    // autoreleasepool中没有page
     static __attribute__((noinline))
     id *autoreleaseNoPage(id obj)
     {
@@ -979,7 +994,7 @@ class AutoreleasePoolPage
             // that is currently represented by the empty placeholder.
             pushExtraBoundary = true;
         }
-        else if (obj != POOL_BOUNDARY  &&  DebugMissingPools) {
+        else if (obj != POOL_BOUNDARY  &&  DebugMissingPools) {//如果没有创建一个autoreleasepool,则直接抛异常
             // We are pushing an object with no pool in place, 
             // and no-pool debugging was requested by environment.
             _objc_inform("MISSING POOLS: (%p) Object %p of class %s "
@@ -990,7 +1005,7 @@ class AutoreleasePoolPage
             objc_autoreleaseNoPool(obj);
             return nil;
         }
-        else if (obj == POOL_BOUNDARY  &&  !DebugPoolAllocation) {
+        else if (obj == POOL_BOUNDARY  &&  !DebugPoolAllocation) {//如果对象为空,并非debug环境,创建一个空的autore占位
             // We are pushing a pool with no pool in place,
             // and alloc-per-pool debugging was not requested.
             // Install and return the empty pool placeholder.
@@ -1008,6 +1023,7 @@ class AutoreleasePoolPage
             page->add(POOL_BOUNDARY);
         }
         
+        // 将released obj添加到page中
         // Push the requested object or pool.
         return page->add(obj);
     }
@@ -1033,7 +1049,7 @@ public:
         return obj;
     }
 
-    // push
+    // push 返回的是next指针指向的obj(是一个released obj)
     static inline void *push() 
     {
         id *dest;
@@ -1080,6 +1096,7 @@ public:
         AutoreleasePoolPage *page;
         id *stop;
 
+        // 如果当前obj是nil
         if (token == (void*)EMPTY_POOL_PLACEHOLDER) {
             // Popping the top-level placeholder pool.
             if (hotPage()) {
@@ -1093,6 +1110,7 @@ public:
             return;
         }
 
+        // 根据token获取page
         page = pageForPointer(token);
         stop = (id *)token;
         if (*stop != POOL_BOUNDARY) {
@@ -1109,6 +1127,7 @@ public:
 
         if (PrintPoolHiwat) printHiwat();
 
+        // 释放对象 沿着链表向上查找
         page->releaseUntil(stop);
 
         // memory: delete empty children

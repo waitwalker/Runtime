@@ -724,6 +724,7 @@ objc_object::autorelease()
 }
 
 
+// MARK: - autorelease 实现
 // Base autorelease implementation, ignoring overrides.
 inline id 
 objc_object::rootAutorelease()
