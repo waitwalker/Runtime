@@ -89,11 +89,11 @@ typedef objc::DenseMap<DisguisedPtr<objc_object>,size_t,true> RefcountMap;
 enum HaveOld { DontHaveOld = false, DoHaveOld = true };
 enum HaveNew { DontHaveNew = false, DoHaveNew = true };
 
-// MARK: - sideTabel
+// MARK: - sideTable类
 struct SideTable {
-    spinlock_t slock;
-    RefcountMap refcnts;
-    weak_table_t weak_table;
+    spinlock_t slock;//保证原子操作的自旋锁
+    RefcountMap refcnts;//保存引用计数的散列表
+    weak_table_t weak_table;//保存weak引用的全局散列表
 
     SideTable() {
         memset(&weak_table, 0, sizeof(weak_table));
@@ -163,13 +163,18 @@ void SideTable::unlockTwo<DontHaveOld, DoHaveNew>
 // libc calls us before our C++ initializers run. We also don't want a global 
 // pointer to this struct because of the extra indirection.
 // Do it the hard way.
+    
+// aligns字节对齐
+// SideTableBuf静态全局变量
 alignas(StripedMap<SideTable>) static uint8_t 
     SideTableBuf[sizeof(StripedMap<SideTable>)];
 
+// MARK: - runtime初始化时调用(objc_init)
 static void SideTableInit() {
     new (SideTableBuf) StripedMap<SideTable>();
 }
 
+// reinterpret_cast C++里的强制类型转换符
 static StripedMap<SideTable>& SideTables() {
     return *reinterpret_cast<StripedMap<SideTable>*>(SideTableBuf);
 }
@@ -253,7 +258,7 @@ objc_storeStrong(id *location, id obj)
     objc_release(prev);
 }
 
-
+// MARK: - 更新一个weak对象
 // Update a weak variable.
 // If HaveOld is true, the variable has an existing value 
 //   that needs to be cleaned up. This value might be nil.
@@ -324,6 +329,7 @@ storeWeak(id *location, objc_object *newObj)
         }
     }
 
+    // 清理旧的obj
     // Clean up old value, if any.
     if (haveOld) {
         weak_unregister_no_lock(&oldTable->weak_table, oldObj, location);
@@ -408,11 +414,13 @@ objc_storeWeakOrNil(id *location, id newObj)
 id
 objc_initWeak(id *location, id newObj)
 {
+    // newObj 是weak对象地址
     if (!newObj) {
         *location = nil;
         return nil;
     }
 
+    // 调用storeWeak函数 传入模板参数:haveOld = false, haveNew = true, 
     return storeWeak<DontHaveOld, DoHaveNew, DoCrashIfDeallocating>
         (location, (objc_object*)newObj);
 }

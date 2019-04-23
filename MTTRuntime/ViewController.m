@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "Student.h"
 
 // 静态全局变量
 static int valueTwo = 20;
@@ -46,6 +47,11 @@ int valueThree = 30;
     @autoreleasepool {
         
     }
+    
+    // weak
+    Student *stu = [[Student alloc]init];
+    
+    id __weak weakObj = stu;
     
 }
 
