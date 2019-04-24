@@ -48,10 +48,9 @@ int valueThree = 30;
         
     }
     
-    // weak
     Student *stu = [[Student alloc]init];
     
-    id __weak weakObj = stu;
+    [stu name];
     
 }
 

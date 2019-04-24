@@ -11,4 +11,8 @@
 
 @implementation Student
 
+- (void)name {
+    NSLog(@"My name is Jack");
+}
+
 @end

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Student : NSObject
 
+- (void)name;
+
 @end
 
 NS_ASSUME_NONNULL_END
