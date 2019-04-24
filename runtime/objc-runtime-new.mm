@@ -4987,6 +4987,8 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
     // No implementation found. Try method resolver once.
     if (resolver  &&  !triedResolver) {
         runtimeLock.unlock();
+        
+        // 动态方法解析
         _class_resolveMethod(cls, sel, inst);
         runtimeLock.lock();
         // Don't cache the result; we don't hold the lock so it may have 
@@ -4998,8 +5000,9 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
     // 如果方法解析也没有IMP,启动消息转发
     // No implementation found, and method resolver didn't help. 
     // Use forwarding.
-
     imp = (IMP)_objc_msgForward_impcache;
+    
+    // 缓存imp
     cache_fill(cls, sel, imp, inst);
 
  done:
