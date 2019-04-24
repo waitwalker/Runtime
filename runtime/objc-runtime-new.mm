@@ -4985,7 +4985,6 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
 
     // 如果以上过程都没有找到,尝试一次动态方法解析
     // No implementation found. Try method resolver once.
-
     if (resolver  &&  !triedResolver) {
         runtimeLock.unlock();
         _class_resolveMethod(cls, sel, inst);
