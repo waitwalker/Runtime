@@ -4864,7 +4864,7 @@ IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
 }
 
 
-// MARK: - 获取imp,先从缓存中查找imp,如果存在直接返回imp.
+// MARK: - 获取imp
 /***********************************************************************
 * lookUpImpOrForward.
 * The standard IMP lookup. 
@@ -4885,6 +4885,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
 
     runtimeLock.assertUnlocked();
 
+    // 首先从缓存中查找,如果找到了imp,直接返回
     // Optimistic cache lookup
     if (cache) {
         imp = cache_getImp(cls, sel);
@@ -4903,6 +4904,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
     runtimeLock.lock();
     checkIsKnownClass(cls);
 
+    // 如果当前类不存在,先实现cls
     if (!cls->isRealized()) {
         realizeClass(cls);
     }
