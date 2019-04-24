@@ -4944,6 +4944,8 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
     // Try superclass caches and method lists.
     {
         unsigned attempts = unreasonableClassCount();
+        
+        // 沿着继承链查找
         for (Class curClass = cls->superclass;
              curClass != nil;
              curClass = curClass->superclass)
@@ -4953,6 +4955,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
                 _objc_fatal("Memory corruption in class list.");
             }
             
+            // 从父类缓存中查找imp
             // Superclass cache.
             imp = cache_getImp(curClass, sel);
             if (imp) {
@@ -4969,6 +4972,7 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
                 }
             }
             
+            // 从父类方法列表中查找imp
             // Superclass method list.
             Method meth = getMethodNoSuper_nolock(curClass, sel);
             if (meth) {
