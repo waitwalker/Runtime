@@ -412,12 +412,13 @@ objc_object::clearDeallocating()
     assert(!sidetable_present());
 }
 
-
+// MARK: - 销毁对象
 inline void
 objc_object::rootDealloc()
 {
     if (isTaggedPointer()) return;  // fixme necessary?
 
+    // 如果是nonpointer优化的对象并且没有weakly_referenced,没有has_assoc,没有has_cxx_dtor,没有has_sidetable_rc,快速释放对象
     if (fastpath(isa.nonpointer  &&  
                  !isa.weakly_referenced  &&  
                  !isa.has_assoc  &&  
@@ -428,6 +429,8 @@ objc_object::rootDealloc()
         free(this);
     } 
     else {
+        
+        // 否则调用此方法
         object_dispose((id)this);
     }
 }

@@ -101,6 +101,7 @@ static void grow_refs_and_insert(weak_entry_t *entry,
     if (old_refs) free(old_refs);
 }
 
+// MARK: - 将weak指针添加到entry的weak指针集合中
 /** 
  * Add the given referrer to set of weak pointers in this entry.
  * Does not perform duplicate checking (b/c weak pointers are never
@@ -156,6 +157,7 @@ static void append_referrer(weak_entry_t *entry, objc_object **new_referrer)
     entry->num_refs++;
 }
 
+// MARK: - 移除weak指针
 /** 
  * Remove old_referrer from set of referrers, if it's present.
  * Does not remove duplicates, because duplicates should not exist. 
@@ -204,6 +206,7 @@ static void remove_referrer(weak_entry_t *entry, objc_object **old_referrer)
     entry->num_refs--;
 }
 
+// MARK: - 将entry插入到weak_table_t的entries中
 /** 
  * Add new_entry to the object's table of weak references.
  * Does not check whether the referent is already in the table.
@@ -295,6 +298,7 @@ static void weak_entry_remove(weak_table_t *weak_table, weak_entry_t *entry)
 }
 
 
+// MARK: - 通过对象地址,在weak_entries中找到对应的weak_entry_t
 /** 
  * Return the weak reference table entry for the given referent. 
  * If there is no entry for referent, return NULL. 
@@ -314,9 +318,12 @@ weak_entry_for_referent(weak_table_t *weak_table, objc_object *referent)
 
     if (!weak_entries) return nil;
 
+    // 获取hash值 按位与操作
     size_t begin = hash_pointer(referent) & weak_table->mask;
     size_t index = begin;
     size_t hash_displacement = 0;
+    
+    // 遍历weak_table中的weak_entries,比对weak_entries[index].referent对象和referent对象是否相等
     while (weak_table->weak_entries[index].referent != referent) {
         index = (index+1) & weak_table->mask;
         if (index == begin) bad_weak_table(weak_table->weak_entries);
@@ -326,9 +333,11 @@ weak_entry_for_referent(weak_table_t *weak_table, objc_object *referent)
         }
     }
     
+    // 返回weak指针
     return &weak_table->weak_entries[index];
 }
 
+// MARK: - 取消注册已经存在的weak指针
 /** 
  * Unregister an already-registered weak reference.
  * This is used when referrer's storage is about to go away, but referent
@@ -355,7 +364,10 @@ weak_unregister_no_lock(weak_table_t *weak_table, id referent_id,
 
     if (!referent) return;
 
+    // 查找weak_entry_t
     if ((entry = weak_entry_for_referent(weak_table, referent))) {
+        
+        // weak指针
         remove_referrer(entry, referrer);
         bool empty = true;
         if (entry->out_of_line()  &&  entry->num_refs != 0) {
@@ -379,6 +391,7 @@ weak_unregister_no_lock(weak_table_t *weak_table, id referent_id,
     // value not change.
 }
 
+// MARK: - 注册一个新的(对象,weak指针)键值对,创建一个新的entry
 /** 
  * Registers a new (object, weak pointer) pair. Creates a new weak
  * object entry if it does not exist.
@@ -396,6 +409,7 @@ weak_register_no_lock(weak_table_t *weak_table, id referent_id,
 
     if (!referent  ||  referent->isTaggedPointer()) return referent_id;
 
+    // 确保对象已经初始化过了
     // ensure that the referenced object is viable
     bool deallocating;
     if (!referent->ISA()->hasCustomRR()) {
@@ -426,12 +440,20 @@ weak_register_no_lock(weak_table_t *weak_table, id referent_id,
 
     // now remember it and where it is being stored
     weak_entry_t *entry;
+    
+    // 如果entry已经存在,直接将weak指针存储到entry中
     if ((entry = weak_entry_for_referent(weak_table, referent))) {
         append_referrer(entry, referrer);
     } 
     else {
+        
+        // 如果entry不存在,先创建一个entry,然后把weak指针存到entry中
         weak_entry_t new_entry(referent, referrer);
+        
+        // weak_table size扩容
         weak_grow_maybe(weak_table);
+        
+        // 将entry插入到weak_table的entries中
         weak_entry_insert(weak_table, &new_entry);
     }
 

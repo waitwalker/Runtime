@@ -1265,7 +1265,7 @@ objc_object::rootRelease_underflow(bool performDealloc)
     return rootRelease(performDealloc, true);
 }
 
-
+// MARK: - 清除weak指针和SideTable中的引用计数
 // Slow path of clearDeallocating() 
 // for objects with nonpointer isa
 // that were ever weakly referenced 

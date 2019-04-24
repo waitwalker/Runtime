@@ -6694,7 +6694,7 @@ object_copyFromZone(id oldObj, size_t extraBytes, void *zone)
 
 #endif
 
-
+// MARK: - 销毁实例对象
 /***********************************************************************
 * objc_destructInstance
 * Destroys an instance without freeing memory. 
