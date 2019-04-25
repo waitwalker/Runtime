@@ -1,17 +1,15 @@
 //
-//  Person.h
-//  MTTRuntime
+//  NewPerson.h
+//  RuntimeDylibTest
 //
-//  Created by LiuChuanan on 2019/4/12.
+//  Created by LiuChuanan on 2019/4/25.
 //
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Person : NSObject
-
-- (void)name;
+@interface NewPerson : NSObject
 
 - (void)age;
 
