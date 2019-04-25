@@ -21,21 +21,21 @@ int main(int argc, const char * argv[]) {
         
         
         Person *person = [[Person alloc]init];
-//        Person *p2 = person;
-//        
-//        [person name];
-//        [person name];
+        Person *p2 = person;
+        
+        [person name];
+        [person name];
         
         [person age];
-//        Class cls = [Person class];
-//        
-//        // weak
-//        __weak id weakP = person;
-//        
-//        NSLog(@"weakP point address: %p",&weakP);
-//        NSLog(@"person point address: %p",&person);
-//        
-//        NSLog(@"weakP address: %p",weakP);
+        Class cls = [Person class];
+        
+        // weak
+        __weak id weakP = person;
+        
+        NSLog(@"weakP point address: %p",&weakP);
+        NSLog(@"person point address: %p",&person);
+        
+        NSLog(@"weakP address: %p",weakP);
         NSLog(@"person address: %p",person);
         
     }

@@ -54,10 +54,30 @@ void newAge (id obj, SEL _cmd) {
 //}
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
+    
+    return nil;
     if (aSelector == @selector(age)) {
         return [[NewPerson alloc]init];
     }
     return [super forwardingTargetForSelector:aSelector];
+}
+
+// MARK: - 正常消息转发
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    SEL sel = anInvocation.selector;
+    if (sel == @selector(age)) {
+        NSLog(@"umimplementation age");
+    } else {
+        NSLog(@"give user a hint");
+    }
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    NSMethodSignature *methodSignature = [super methodSignatureForSelector:aSelector];
+    if (!methodSignature) {
+        methodSignature = [NSMethodSignature signatureWithObjCTypes:"v@:*"];
+    }
+    return methodSignature;
 }
 
 @end
