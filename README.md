@@ -130,6 +130,14 @@ return 0;
 
 [6. Block解读](https://waitwalker.github.io/2019/04/18/Block解读/)
 
+[7. Retain&Release解读](http://waitwalker.cn/2019/04/22/Retain-Release解读/)
+
+[8. Autorelease解读](http://waitwalker.cn/2019/04/23/Autorelease解读/)
+
+[9. Weak解读](http://waitwalker.cn/2019/04/24/Weak解读/)
+
+[10. msgSend()解读](http://waitwalker.cn/2019/04/25/msgSend-解读/)
+
 ### 六.参考文献
 [https://pewpewthespells.com/blog/buildsettings.html](https://pewpewthespells.com/blog/buildsettings.html)<br>
 [https://blog.csdn.net/wotors/article/details/52489464](https://blog.csdn.net/wotors/article/details/52489464)
