@@ -135,6 +135,7 @@
 		CA5887C5225B19A900E277F1 /* crt_externs.h in Headers */ = {isa = PBXBuildFile; fileRef = CA5887C4225B19A900E277F1 /* crt_externs.h */; };
 		CA5887CB225B22D100E277F1 /* shared_region.h in Headers */ = {isa = PBXBuildFile; fileRef = CA5887CA225B22D100E277F1 /* shared_region.h */; };
 		CA88DA0B2268281C00C4C87C /* Block.zip in Resources */ = {isa = PBXBuildFile; fileRef = CA88DA0A2268281C00C4C87C /* Block.zip */; };
+		CAD2EC87227194F400C63A87 /* NewPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD2EC86227194F400C63A87 /* NewPerson.m */; };
 		E8923DA5116AB2820071B552 /* objc-block-trampolines.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8923DA0116AB2820071B552 /* objc-block-trampolines.mm */; };
 		F9BCC71B205C68E800DD9AFC /* objc-blocktramps-arm64.s in Sources */ = {isa = PBXBuildFile; fileRef = 8379996D13CBAF6F007C2B5F /* objc-blocktramps-arm64.s */; };
 /* End PBXBuildFile section */
@@ -327,6 +328,8 @@
 		CA5887C4225B19A900E277F1 /* crt_externs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crt_externs.h; sourceTree = "<group>"; };
 		CA5887CA225B22D100E277F1 /* shared_region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shared_region.h; sourceTree = "<group>"; };
 		CA88DA0A2268281C00C4C87C /* Block.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Block.zip; sourceTree = "<group>"; };
+		CAD2EC85227194F400C63A87 /* NewPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPerson.h; sourceTree = "<group>"; };
+		CAD2EC86227194F400C63A87 /* NewPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPerson.m; sourceTree = "<group>"; };
 		D2AAC0630554660B00DB518D /* libobjc.A.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libobjc.A.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8923D9C116AB2820071B552 /* objc-blocktramps-i386.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "objc-blocktramps-i386.s"; path = "runtime/objc-blocktramps-i386.s"; sourceTree = "<group>"; };
 		E8923D9D116AB2820071B552 /* objc-blocktramps-x86_64.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "objc-blocktramps-x86_64.s"; path = "runtime/objc-blocktramps-x86_64.s"; sourceTree = "<group>"; };
@@ -650,6 +653,8 @@
 				CA54080C226077D50056A1F8 /* Person.h */,
 				CA54080D226077D50056A1F8 /* Person.m */,
 				CA588785225AFF1700E277F1 /* main.m */,
+				CAD2EC85227194F400C63A87 /* NewPerson.h */,
+				CAD2EC86227194F400C63A87 /* NewPerson.m */,
 			);
 			path = RuntimeDylibTest;
 			sourceTree = "<group>";
@@ -1030,6 +1035,7 @@
 			files = (
 				CA540812226079280056A1F8 /* Person.m in Sources */,
 				CA588786225AFF1700E277F1 /* main.m in Sources */,
+				CAD2EC87227194F400C63A87 /* NewPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
