@@ -759,10 +759,16 @@ objc_object::rootRetainCount()
             rc += sidetable_getExtraRC_nolock();
         }
         sidetable_unlock();
+        
+        // 策略就是:判断是否是优化型isa
+        // 是的话将extra_rc+1
+        // 判断SideTable中是否存储引用计数
+        // 是的话将extra_rc+1+SideTable中引用计数后返回
         return rc;
     }
 
     sidetable_unlock();
+    // 不是优化型isa指针, 引用计数存储在SideTable中,获取并返回
     return sidetable_retainCount();
 }
 
