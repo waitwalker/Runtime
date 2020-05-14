@@ -2729,6 +2729,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
                 continue;
             }
 
+            // 先将实例方法,协议,属性添加到基类里面
             // Process this category. 
             // First, register the category with its target class. 
             // Then, rebuild the class's method lists (etc) if 
@@ -2749,6 +2750,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
                 }
             }
 
+            // 然后将类方法,类协议,类属性添加到基类里面
             if (cat->classMethods  ||  cat->protocols  
                 ||  (hasClassProperties && cat->_classProperties)) 
             {
