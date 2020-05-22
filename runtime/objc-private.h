@@ -69,6 +69,7 @@ union isa_t {
     uintptr_t bits;
 #if defined(ISA_BITFIELD)
     struct {
+        // isa 结构的定义
         ISA_BITFIELD;  // defined in isa.h
     };
 #endif

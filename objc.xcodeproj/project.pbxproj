@@ -105,6 +105,7 @@
 		83F550E0155E030800E95D3B /* objc-cache-old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83F550DF155E030800E95D3B /* objc-cache-old.mm */; };
 		87BB4EA70EC39854005D08E1 /* objc-probes.d in Sources */ = {isa = PBXBuildFile; fileRef = 87BB4E900EC39633005D08E1 /* objc-probes.d */; };
 		9672F7EE14D5F488007CEC96 /* NSObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9672F7ED14D5F488007CEC96 /* NSObject.mm */; };
+		BF75BD722477619E003FA4DA /* MTTBlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF75BD712477619E003FA4DA /* MTTBlockManager.m */; };
 		CA412A63226EC242001F171F /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = CA412A62226EC242001F171F /* Student.m */; };
 		CA540812226079280056A1F8 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = CA54080D226077D50056A1F8 /* Person.m */; };
 		CA588730225AE38D00E277F1 /* reason.h in Headers */ = {isa = PBXBuildFile; fileRef = CA58872F225AE38D00E277F1 /* reason.h */; };
@@ -287,6 +288,8 @@
 		87BB4E900EC39633005D08E1 /* objc-probes.d */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.dtrace; name = "objc-probes.d"; path = "runtime/objc-probes.d"; sourceTree = "<group>"; };
 		9672F7ED14D5F488007CEC96 /* NSObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NSObject.mm; path = runtime/NSObject.mm; sourceTree = "<group>"; };
 		BC8B5D1212D3D48100C78A5B /* libauto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libauto.dylib; path = /usr/lib/libauto.dylib; sourceTree = "<absolute>"; };
+		BF75BD702477619E003FA4DA /* MTTBlockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTTBlockManager.h; sourceTree = "<group>"; };
+		BF75BD712477619E003FA4DA /* MTTBlockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTTBlockManager.m; sourceTree = "<group>"; };
 		CA412A61226EC241001F171F /* Student.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
 		CA412A62226EC242001F171F /* Student.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		CA54080C226077D50056A1F8 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -674,6 +677,8 @@
 				CA5887A1225B168700E277F1 /* main.m */,
 				CA412A61226EC241001F171F /* Student.h */,
 				CA412A62226EC242001F171F /* Student.m */,
+				BF75BD702477619E003FA4DA /* MTTBlockManager.h */,
+				BF75BD712477619E003FA4DA /* MTTBlockManager.m */,
 			);
 			path = MTTRuntime;
 			sourceTree = "<group>";
@@ -912,7 +917,6 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = NO;
 				LastUpgradeCheck = 0440;
 				TargetAttributes = {
 					837F67A81A771F63004D34FA = {
@@ -925,7 +929,7 @@
 					};
 					CA58878F225B168400E277F1 = {
 						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = NV5J27ZQZQ;
+						DevelopmentTeam = 4XP6U9X87N;
 						ProvisioningStyle = Automatic;
 					};
 					CA5887A6225B168700E277F1 = {
@@ -1044,6 +1048,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA588797225B168400E277F1 /* ViewController.m in Sources */,
+				BF75BD722477619E003FA4DA /* MTTBlockManager.m in Sources */,
 				CA5887A2225B168700E277F1 /* main.m in Sources */,
 				CA588794225B168400E277F1 /* AppDelegate.m in Sources */,
 				CA412A63226EC242001F171F /* Student.m in Sources */,
@@ -1591,7 +1596,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = NV5J27ZQZQ;
+				DEVELOPMENT_TEAM = 4XP6U9X87N;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1652,7 +1657,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = NV5J27ZQZQ;
+				DEVELOPMENT_TEAM = 4XP6U9X87N;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
