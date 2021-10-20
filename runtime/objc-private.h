@@ -62,6 +62,7 @@ namespace {
 
 // MARK: - isa的声明
 union isa_t {
+    /// isa_t的构造函数
     isa_t() { }
     isa_t(uintptr_t value) : bits(value) { }
 
